@@ -11,24 +11,29 @@ def move_y(ypos, step_y):
     return ypos + step_y
 
 def gameover(screen_width, screen_height,screen):
-     # creating font object my_font
-            my_font = pygame.font.SysFont('times new roman', 50)
+     # creazione del testo
+            my_font = pygame.font.SysFont('times new roman', 20)
             game_over_surface = my_font.render(
-            'e perz ', True,pygame.Color(255, 0, 0))
+            'e perz, premi Q per uscire, SPACE per ricominciare', True,pygame.Color(255, 0, 0))
             game_over_rect = game_over_surface.get_rect()
      
-    # setting position of the text
+    
             game_over_rect.midtop = (screen_width/2, screen_height/4)
      
-    # blit will draw the text on screen
             screen.blit(game_over_surface, game_over_rect)
             pygame.display.flip()
-            time.sleep(2)
-     
-    # deactivating pygame library
-            main()
-            
-            # quit the program
+            time.sleep(1)
+    #gestione della scelta utente
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q: 
+                        pygame.quit()
+                        quit()
+                    if event.key == pygame.K_SPACE: 
+                        main()  
 
 def score(screen_width, screen_height,screen,cont):
     my_font = pygame.font.SysFont('times new roman', 50)
