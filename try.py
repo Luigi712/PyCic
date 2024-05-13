@@ -20,8 +20,8 @@ def main():
     xpos = 50
     ypos = 50
     # how many pixels we move our smiley each frame
-    step_x = 10
-    step_y = 10
+    step_x = 15
+    step_y = 15
     screen_width=800
     screen_height=800
     # check if the smiley is still on screen, if not change direction
@@ -37,10 +37,10 @@ def main():
             step_x = -step_x
         if ypos>screen_height-64 or ypos<0:
             step_y = -step_y
-        time.sleep(0.3)
+        time.sleep(0.05)
         # update the position of the smiley
-        xpos += step_x # move it to the right
-        ypos += step_y # move it down
+        #xpos += step_x # move it to the right
+        #ypos += step_y # move it down
         screen.blit(image, (xpos,ypos))
         pygame.display.flip()
         # event handling, gets all event from the event queue
@@ -49,7 +49,15 @@ def main():
             if event.type == pygame.QUIT:
                 # change the value to False, to exit the main loop
                 running = False
-     
+            if event.type == pygame.KEYDOWN: 
+			            if event.key == pygame.K_a: 
+                                        xpos = xpos - step_x
+			            if event.key == pygame.K_d: 
+                                        xpos = xpos + step_x
+			            if event.key == pygame.K_s: 
+                                        ypos = ypos + step_y
+			            if event.key == pygame.K_w: 
+                                        ypos = ypos - step_y
      
 # run the main function only if this module is executed as the main script
 # (if you import this as a module then nothing is executed)
