@@ -30,9 +30,16 @@ def gameover(screen_width, screen_height,screen):
             
             # quit the program
 
+def score(screen_width, screen_height,screen,cont):
+    my_font = pygame.font.SysFont('times new roman', 50)
+    score_surface = my_font.render('score: ' + str(cont) , True,pygame.Color(255, 0, 0))
+    score_rect = score_surface.get_rect()
+    score_rect = (screen_width/2, screen_height/4)
+    screen.blit(score_surface, score_rect)
+    pygame.display.update()
+
 # define a main function
 def main():
-     
     # initialize the pygame module
     pygame.init()
     # load and set the logo
@@ -49,6 +56,7 @@ def main():
     img_enemy = pygame.transform.scale(img_enemy,(50,50))
     pygame.display.flip()
 
+    cont = 0
     xpos = 50
     ypos = 50
     x_enemy = random.randint(100,700)
@@ -68,6 +76,8 @@ def main():
      
     # main loop
     while running:
+        score(screen_width,screen_height,screen,cont)
+
         if change_to=='RIGHT':
             xpos = move_x(xpos, step_x)
         if change_to=='UP':
@@ -94,6 +104,7 @@ def main():
             pygame.display.flip()
             x_enemy = random.randint(100,700)
             y_enemy = random.randint(100,700)
+            cont=cont+1
 
 
         # event handling, gets all event from the event queue
