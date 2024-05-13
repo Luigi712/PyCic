@@ -12,7 +12,7 @@ def main():
     pygame.display.set_caption("minimal program")
      
     # create a surface on screen that has the size of 240 x 180
-    screen = pygame.display.set_mode((240,180))
+    screen = pygame.display.set_mode((800,800))
     image = pygame.image.load("asset/hasb.png")
     image = pygame.transform.scale(image,(100,100))
     pygame.display.flip()
@@ -22,8 +22,8 @@ def main():
     # how many pixels we move our smiley each frame
     step_x = 10
     step_y = 10
-    screen_width=240
-    screen_height=180
+    screen_width=800
+    screen_height=800
     # check if the smiley is still on screen, if not change direction
     
 
@@ -37,7 +37,7 @@ def main():
             step_x = -step_x
         if ypos>screen_height-64 or ypos<0:
             step_y = -step_y
-        time.sleep(0.20)
+        time.sleep(0.3)
         # update the position of the smiley
         xpos += step_x # move it to the right
         ypos += step_y # move it down
