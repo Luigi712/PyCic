@@ -51,8 +51,8 @@ def main():
 
     xpos = 50
     ypos = 50
-    x_enemy = random.randint(100,800)
-    y_enemy = random.randint(100,800)
+    x_enemy = random.randint(100,700)
+    y_enemy = random.randint(100,700)
     # how many pixels we move our smiley each frame
     step_x = 15
     step_y = 15
