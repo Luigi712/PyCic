@@ -48,10 +48,10 @@ def gameover(screen_width, screen_height,screen):
                         main()  
 
 def score(screen_width, screen_height,screen,cont):
-    my_font = pygame.font.SysFont('times new roman', 50)
+    my_font = pygame.font.SysFont('times new roman', 20)
     score_surface = my_font.render('score: ' + str(cont) , True,pygame.Color(255, 0, 0))
     score_rect = score_surface.get_rect()
-    score_rect = (screen_width/2, screen_height/4)
+    score_rect = (screen_width/2, screen_height/8)
     screen.blit(score_surface, score_rect)
     pygame.display.update()
 
