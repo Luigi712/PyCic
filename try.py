@@ -7,6 +7,9 @@ import random
 def move_x(xpos, step_x):
     return xpos + step_x
 
+def move_y(ypos, step_y):
+    return ypos + step_y
+
 
 
 # define a main function
@@ -38,6 +41,7 @@ def main():
     screen_width=800
     screen_height=800
     # check if the smiley is still on screen, if not change direction
+    change_to = 'RIGHT'
     
 
      
@@ -46,6 +50,16 @@ def main():
      
     # main loop
     while running:
+        if change_to=='RIGHT':
+            xpos = move_x(xpos, step_x)
+        if change_to=='UP':
+            ypos = move_y(ypos, -step_y)
+        if change_to=='LEFT':
+            xpos = move_x(xpos, -step_x)
+        if change_to=='DOWN':
+            ypos = move_y(ypos, step_y)
+
+        #Controlli per non superare il bordo, da sostituire con game over
         if xpos>screen_width-64 or xpos<0:
             step_x = -step_x
         if ypos>screen_height-64 or ypos<0:
@@ -54,13 +68,11 @@ def main():
         # update the position of the smiley
         # xpos += step_x # move it to the right
         screen.fill(0)
-
-        xpos = move_x(xpos, step_x)
         screen.blit(image, (xpos,ypos))
         screen.blit(img_enemy, (x_enemy,y_enemy))
         pygame.display.flip()
 
-        if xpos > x_enemy-10 and xpos < x_enemy+10 and ypos > y_enemy-10 and ypos < y_enemy+10:
+        if xpos > x_enemy-30 and xpos < x_enemy+30 and ypos > y_enemy-30 and ypos < y_enemy+30:
             pygame.display.flip()
             x_enemy = random.randint(100,800)
             y_enemy = random.randint(100,800)
@@ -74,13 +86,25 @@ def main():
                 running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
-                    xpos = xpos - step_x
+                    if change_to == 'RIGHT':
+                        pass
+                    else:
+                        change_to = 'LEFT'
                 if event.key == pygame.K_d:
-                    xpos = xpos + step_x
-                if event.key == pygame.K_s: 
-                    ypos = ypos + step_y
-                if event.key == pygame.K_w: 
-                    ypos = ypos - step_y
+                    if change_to == 'LEFT':
+                        pass
+                    else:
+                        change_to = 'RIGHT'
+                if event.key == pygame.K_s:
+                    if change_to == 'UP':
+                        pass
+                    else: 
+                        change_to = 'DOWN'
+                if event.key == pygame.K_w:
+                    if change_to =='DOWN':
+                        pass
+                    else:
+                        change_to = 'UP'
      
 # run the main function only if this module is executed as the main script
 # (if you import this as a module then nothing is executed)
