@@ -10,6 +10,18 @@ def move_x(xpos, step_x):
 def move_y(ypos, step_y):
     return ypos + step_y
 
+def showscore(screen_width, screen_height,screen):
+    my_font = pygame.font.SysFont('times new roman', 20)
+    game_over_surface = my_font.render(
+      'e perz, premi Q per uscire, SPACE per ricominciare', True,pygame.Color(255, 0, 0))
+    game_over_rect = game_over_surface.get_rect()
+     
+    
+    game_over_rect.midtop = (screen_width/2, screen_height/4)
+     
+    screen.blit(game_over_surface, game_over_rect)
+    pygame.display.flip()
+
 def gameover(screen_width, screen_height,screen):
      # creazione del testo
             my_font = pygame.font.SysFont('times new roman', 20)
@@ -95,7 +107,7 @@ def main():
         screen.blit(img_enemy, (x_enemy,y_enemy))
         pygame.display.flip()
 
-        if xpos > x_enemy-40 and xpos < x_enemy+40 and ypos > y_enemy-40 and ypos < y_enemy+40:
+        if xpos > x_enemy-50 and xpos < x_enemy+50 and ypos > y_enemy-50 and ypos < y_enemy+50:
             pygame.display.flip()
             x_enemy = random.randint(100,700)
             y_enemy = random.randint(100,700)
