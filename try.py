@@ -1,6 +1,6 @@
 # import the pygame module, so you can use it
 import pygame
- 
+import time
 # define a main function
 def main():
      
@@ -37,6 +37,7 @@ def main():
             step_x = -step_x
         if ypos>screen_height-64 or ypos<0:
             step_y = -step_y
+        time.sleep(0.10)
         # update the position of the smiley
         xpos += step_x # move it to the right
         ypos += step_y # move it down
