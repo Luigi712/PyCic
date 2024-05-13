@@ -8,7 +8,25 @@ def move_x(xpos, step_x):
 def move_y(ypos, step_y):
     return ypos + step_y
 
-
+def gameover(screen_width, screen_height,screen):
+     # creating font object my_font
+            my_font = pygame.font.SysFont('times new roman', 50)
+            game_over_surface = my_font.render(
+            'e perz ', True,pygame.Color(255, 0, 0))
+            game_over_rect = game_over_surface.get_rect()
+     
+    # setting position of the text
+            game_over_rect.midtop = (screen_width/2, screen_height/4)
+     
+    # blit will draw the text on screen
+            screen.blit(game_over_surface, game_over_rect)
+            pygame.display.flip()
+            time.sleep(2)
+     
+    # deactivating pygame library
+            main()
+            
+            # quit the program
 
 # define a main function
 def main():
@@ -54,9 +72,9 @@ def main():
 
         #Controlli per non superare il bordo, da sostituire con game over
         if xpos>screen_width-64 or xpos<0:
-            step_x = -step_x
+           gameover(screen_width,screen_height,screen)
         if ypos>screen_height-64 or ypos<0:
-            step_y = -step_y
+           gameover(screen_width,screen_height,screen)
         time.sleep(0.05)
         # update the position of the smiley
         # xpos += step_x # move it to the right
