@@ -1,6 +1,12 @@
 # import the pygame module, so you can use it
 import pygame
 import time
+
+def move_x(xpos, step_x):
+    return xpos + step_x
+
+
+
 # define a main function
 def main():
      
@@ -40,8 +46,11 @@ def main():
         time.sleep(0.05)
         # update the position of the smiley
         # xpos += step_x # move it to the right
-        # ypos += step_y # move it down
-        image.scroll(xpos, ypos)
+        screen.fill(0)
+
+        xpos = move_x(xpos, step_x)
+        
+        screen.blit(image, (xpos,ypos))
         pygame.display.flip()
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
