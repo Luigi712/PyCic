@@ -39,9 +39,9 @@ def main():
             step_y = -step_y
         time.sleep(0.05)
         # update the position of the smiley
-        #xpos += step_x # move it to the right
-        #ypos += step_y # move it down
-        screen.blit(image, (xpos,ypos))
+        # xpos += step_x # move it to the right
+        # ypos += step_y # move it down
+        image.scroll(xpos, ypos)
         pygame.display.flip()
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
@@ -49,15 +49,15 @@ def main():
             if event.type == pygame.QUIT:
                 # change the value to False, to exit the main loop
                 running = False
-            if event.type == pygame.KEYDOWN: 
-			            if event.key == pygame.K_a: 
-                                        xpos = xpos - step_x
-			            if event.key == pygame.K_d: 
-                                        xpos = xpos + step_x
-			            if event.key == pygame.K_s: 
-                                        ypos = ypos + step_y
-			            if event.key == pygame.K_w: 
-                                        ypos = ypos - step_y
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:
+                    xpos = xpos - step_x
+                if event.key == pygame.K_d:
+                    xpos = xpos + step_x
+                if event.key == pygame.K_s: 
+                    ypos = ypos + step_y
+                if event.key == pygame.K_w: 
+                    ypos = ypos - step_y
      
 # run the main function only if this module is executed as the main script
 # (if you import this as a module then nothing is executed)
