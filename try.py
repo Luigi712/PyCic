@@ -72,10 +72,10 @@ def main():
         screen.blit(img_enemy, (x_enemy,y_enemy))
         pygame.display.flip()
 
-        if xpos > x_enemy-30 and xpos < x_enemy+30 and ypos > y_enemy-30 and ypos < y_enemy+30:
+        if xpos > x_enemy-40 and xpos < x_enemy+40 and ypos > y_enemy-40 and ypos < y_enemy+40:
             pygame.display.flip()
-            x_enemy = random.randint(100,800)
-            y_enemy = random.randint(100,800)
+            x_enemy = random.randint(100,700)
+            y_enemy = random.randint(100,700)
 
 
         # event handling, gets all event from the event queue
