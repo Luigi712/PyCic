@@ -1,6 +1,8 @@
 # import the pygame module, so you can use it
 import pygame
 import time
+import random
+
 
 def move_x(xpos, step_x):
     return xpos + step_x
@@ -20,11 +22,16 @@ def main():
     # create a surface on screen that has the size of 240 x 180
     screen = pygame.display.set_mode((800,800))
     image = pygame.image.load("asset/hasb.png")
-    image = pygame.transform.scale(image,(100,100))
+    image = pygame.transform.scale(image,(80,80))
+
+    img_enemy = pygame.image.load("asset/OIP.png")
+    img_enemy = pygame.transform.scale(img_enemy,(50,50))
     pygame.display.flip()
 
     xpos = 50
     ypos = 50
+    x_enemy = random.randint(100,800)
+    y_enemy = random.randint(100,800)
     # how many pixels we move our smiley each frame
     step_x = 15
     step_y = 15
@@ -49,9 +56,16 @@ def main():
         screen.fill(0)
 
         xpos = move_x(xpos, step_x)
-        
         screen.blit(image, (xpos,ypos))
+        screen.blit(img_enemy, (x_enemy,y_enemy))
         pygame.display.flip()
+
+        if xpos > x_enemy-10 and xpos < x_enemy+10 and ypos > y_enemy-10 and ypos < y_enemy+10:
+            pygame.display.flip()
+            x_enemy = random.randint(100,800)
+            y_enemy = random.randint(100,800)
+
+
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
             # only do something if the event is of type QUIT
