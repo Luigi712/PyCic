@@ -66,6 +66,7 @@ def shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont):
             screen.blit(bullet, (x_bull,y_bull))
             if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
                 cont = cont + 20
+                x_v = x_v + 50
                 break
             pygame.display.flip()
     if change_shot == 'UP':
@@ -74,6 +75,7 @@ def shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont):
             screen.blit(bullet, (x_bull,y_bull))
             if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
                 cont = cont + 20
+                y_v = y_v - 50
                 break
             pygame.display.flip()
     if change_shot == 'LEFT':
@@ -83,6 +85,7 @@ def shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont):
             pygame.display.flip()
             if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
                 cont = cont + 20
+                x_v = x_v - 50
                 break
     if change_shot == 'DOWN':
         while y_bull<800:
@@ -93,8 +96,8 @@ def shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont):
                 cont = cont + 20
                 y_v = y_v + 50
                 break
-    #return cont variable
-    return cont
+    #return cont variable and x,y of vlad. +7 keep vladimir moving with main
+    return (cont,x_v + 7,y_v +7)
 
 
 
@@ -229,16 +232,16 @@ def main():
                         change_to = 'UP'
                 if event.key == pygame.K_UP:
                     change_shot = 'UP'
-                    cont = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                    (cont,x_v,y_v) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
                 if event.key == pygame.K_DOWN:
                     change_shot = 'DOWN'
-                    cont = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                    (cont,x_v,y_v) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
                 if event.key == pygame.K_RIGHT:
                     change_shot = 'RIGHT'
-                    cont = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                    (cont,x_v,y_v) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
                 if event.key == pygame.K_LEFT:
                     change_shot = 'LEFT'
-                    cont = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                    (cont,x_v,y_v) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
 
                     
 # run the main function only if this module is executed as the main script
