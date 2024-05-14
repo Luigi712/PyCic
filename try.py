@@ -92,7 +92,7 @@ def shoot(xpos,ypos,change_to,screen,bullet,x_v,y_v,cont):
             if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
                 cont = cont + 20
                 break
-    
+    #return cont variable
     return cont
 
 
