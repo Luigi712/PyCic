@@ -179,15 +179,26 @@ def main():
         screen.blit(img_enemy, (x_enemy,y_enemy))
         screen.blit(vladimir, (x_v,y_v))
         pygame.display.flip()
+        if(random.randint(100,150) == 120):
+            step_x=15
+            step_y=15
+            image = pygame.image.load("asset/hasb.png")
+            image = pygame.transform.scale(image,(65,65))
+        
 
         #hitbox for eating
         if xpos > x_enemy-40 and xpos < x_enemy+40 and ypos > y_enemy-40 and ypos < y_enemy+40:
             pygame.display.flip()
             x_enemy = random.randint(100,1100)
             y_enemy = random.randint(100,700)
+            image = pygame.image.load("asset/hasb2.png")
+            image = pygame.transform.scale(image,(65,65))
+            step_x = step_x + 15
+            step_y = step_y + 15
             cont=cont+1
 
         #Vladimir follow you...
+
         if x_v < xpos:
             x_v = x_v + 7
         else:
