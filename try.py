@@ -55,6 +55,34 @@ def score(screen_width, screen_height,screen,cont):
     screen.blit(score_surface, score_rect)
     pygame.display.update()
 
+
+def shoot(xpos,ypos,change_to,screen,bullet):
+    x_bull=xpos
+    y_bull=ypos+20
+    if change_to == 'RIGHT':
+        while x_bull<1200:
+            x_bull=x_bull+40
+            screen.blit(bullet, (x_bull,y_bull))
+            pygame.display.flip()
+    if change_to == 'UP':
+        while y_bull>-800:
+            y_bull=y_bull-40
+            screen.blit(bullet, (x_bull,y_bull))
+            pygame.display.flip()
+    if change_to == 'LEFT':
+        while x_bull>-1200:
+            x_bull=x_bull-40
+            screen.blit(bullet, (x_bull,y_bull))
+            pygame.display.flip()
+    if change_to == 'DOWN':
+        while y_bull<800:
+            y_bull=y_bull+40
+            screen.blit(bullet, (x_bull,y_bull))
+            pygame.display.flip()
+
+
+
+
 # define a main function
 def main():
     # initialize the pygame module
@@ -63,31 +91,44 @@ def main():
     #logo = pygame.image.load("logo32x32.png")
     #pygame.display.set_icon(logo)
     pygame.display.set_caption("minimal program")
-     
+    
     # create a surface on screen that has the size of 240 x 180
-    screen = pygame.display.set_mode((800,800))
+    screen = pygame.display.set_mode((1200,800))
+
+    bg = pygame.image.load("asset/backg.png")
+    bg = pygame.transform.scale(bg, (1200,800))
+
     image = pygame.image.load("asset/hasb.png")
-    image = pygame.transform.scale(image,(80,80))
+    image = pygame.transform.scale(image,(65,65))
 
     img_enemy = pygame.image.load("asset/OIP.png")
-    img_enemy = pygame.transform.scale(img_enemy,(50,50))
+    img_enemy = pygame.transform.scale(img_enemy,(40,40))
+    
+    vladimir = pygame.image.load("asset/vladi.png")
+    vladimir = pygame.transform.scale(vladimir,(80,80))
+
+    bullet = pygame.image.load("asset/R.png")
+    bullet = pygame.transform.scale(bullet,(40,40))
     pygame.display.flip()
+
+
 
     cont = 0
     xpos = 50
     ypos = 50
-    x_enemy = random.randint(100,700)
+    x_enemy = random.randint(100,1100)
     y_enemy = random.randint(100,700)
+    x_v = 500
+    y_v = 500
+
     # how many pixels we move our smiley each frame
     step_x = 15
     step_y = 15
-    screen_width=800
+    screen_width=1200
     screen_height=800
     # check if the smiley is still on screen, if not change direction
     change_to = 'RIGHT'
     
-
-     
     # define a variable to control the main loop
     running = True
      
@@ -110,19 +151,37 @@ def main():
         if ypos>screen_height-64 or ypos<0:
            gameover(screen_width,screen_height,screen)
         time.sleep(0.05)
-        # update the position of the smiley
-        # xpos += step_x # move it to the right
+
+        #spawn sprite
+
         screen.fill(0)
+        screen.blit(bg, (0, 0))
         screen.blit(image, (xpos,ypos))
         screen.blit(img_enemy, (x_enemy,y_enemy))
+        screen.blit(vladimir, (x_v,y_v))
         pygame.display.flip()
 
-        if xpos > x_enemy-50 and xpos < x_enemy+50 and ypos > y_enemy-50 and ypos < y_enemy+50:
+        #hitbox for eating
+        if xpos > x_enemy-40 and xpos < x_enemy+40 and ypos > y_enemy-40 and ypos < y_enemy+40:
             pygame.display.flip()
-            x_enemy = random.randint(100,700)
+            x_enemy = random.randint(100,1100)
             y_enemy = random.randint(100,700)
             cont=cont+1
 
+        #Vladimir follow you...
+        if x_v < xpos:
+            x_v = x_v + 8
+        else:
+            x_v = x_v - 8
+        if y_v < ypos:
+            y_v = y_v + 8
+        else:
+            y_v = y_v - 8
+
+        #hitbox for Vladimir
+        if xpos > x_v-40 and xpos < x_v+40 and ypos > y_v-40 and ypos < y_v+40:
+            pygame.display.flip()
+            cont=cont-1
 
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
@@ -151,7 +210,11 @@ def main():
                         pass
                     else:
                         change_to = 'UP'
-     
+                if event.key == pygame.K_SPACE:
+                    shoot(xpos,ypos,change_to,screen,bullet)
+                    
+
+                    
 # run the main function only if this module is executed as the main script
 # (if you import this as a module then nothing is executed)dwa
 if __name__=="__main__":
