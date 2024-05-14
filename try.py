@@ -56,29 +56,44 @@ def score(screen_width, screen_height,screen,cont):
     pygame.display.update()
 
 
-def shoot(xpos,ypos,change_to,screen,bullet):
+
+def shoot(xpos,ypos,change_to,screen,bullet,x_v,y_v,cont):
     x_bull=xpos
     y_bull=ypos+20
     if change_to == 'RIGHT':
         while x_bull<1200:
             x_bull=x_bull+40
             screen.blit(bullet, (x_bull,y_bull))
+            if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
+                cont = cont + 20
+                break
             pygame.display.flip()
     if change_to == 'UP':
         while y_bull>-800:
             y_bull=y_bull-40
             screen.blit(bullet, (x_bull,y_bull))
+            if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
+                cont = cont + 20
+                break
             pygame.display.flip()
     if change_to == 'LEFT':
         while x_bull>-1200:
             x_bull=x_bull-40
             screen.blit(bullet, (x_bull,y_bull))
             pygame.display.flip()
+            if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
+                cont = cont + 20
+                break
     if change_to == 'DOWN':
         while y_bull<800:
             y_bull=y_bull+40
             screen.blit(bullet, (x_bull,y_bull))
             pygame.display.flip()
+            if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
+                cont = cont + 20
+                break
+    
+    return cont
 
 
 
@@ -183,6 +198,7 @@ def main():
             pygame.display.flip()
             cont=cont-1
 
+
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
             # only do something if the event is of type QUIT
@@ -211,7 +227,7 @@ def main():
                     else:
                         change_to = 'UP'
                 if event.key == pygame.K_SPACE:
-                    shoot(xpos,ypos,change_to,screen,bullet)
+                    cont = shoot(xpos,ypos,change_to,screen,bullet,x_v,y_v,cont)
                     
 
                     
