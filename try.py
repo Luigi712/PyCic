@@ -92,6 +92,9 @@ def main():
     img_enemy = pygame.image.load("asset/OIP.png")
     img_enemy = pygame.transform.scale(img_enemy,(40,40))
     
+    vladimir = pygame.image.load("asset/vladi.png")
+    vladimir = pygame.transform.scale(vladimir,(80,80))
+
     bullet = pygame.image.load("asset/R.png")
     bullet = pygame.transform.scale(bullet,(40,40))
     pygame.display.flip()
@@ -103,6 +106,9 @@ def main():
     ypos = 50
     x_enemy = random.randint(100,1100)
     y_enemy = random.randint(100,700)
+    x_v = 500
+    y_v = 500
+
     # how many pixels we move our smiley each frame
     step_x = 15
     step_y = 15
@@ -133,20 +139,37 @@ def main():
         if ypos>screen_height-64 or ypos<0:
            gameover(screen_width,screen_height,screen)
         time.sleep(0.05)
-        # update the position of the smiley
-        # xpos += step_x # move it to the right
+
+        #spawn sprite
+
         screen.fill(0)
         screen.blit(bg, (0, 0))
         screen.blit(image, (xpos,ypos))
         screen.blit(img_enemy, (x_enemy,y_enemy))
+        screen.blit(vladimir, (x_v,y_v))
         pygame.display.flip()
 
+        #hitbox for eating
         if xpos > x_enemy-40 and xpos < x_enemy+40 and ypos > y_enemy-40 and ypos < y_enemy+40:
             pygame.display.flip()
             x_enemy = random.randint(100,1100)
             y_enemy = random.randint(100,700)
             cont=cont+1
 
+        #Vladimir follow you...
+        if x_v < xpos:
+            x_v = x_v + 8
+        else:
+            x_v = x_v - 8
+        if y_v < ypos:
+            y_v = y_v + 8
+        else:
+            y_v = y_v - 8
+
+        #hitbox for Vladimir
+        if xpos > x_v-40 and xpos < x_v+40 and ypos > y_v-40 and ypos < y_v+40:
+            pygame.display.flip()
+            cont=cont-1
 
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
