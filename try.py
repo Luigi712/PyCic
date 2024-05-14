@@ -57,10 +57,10 @@ def score(screen_width, screen_height,screen,cont):
 
 
 
-def shoot(xpos,ypos,change_to,screen,bullet,x_v,y_v,cont):
+def shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont):
     x_bull=xpos
     y_bull=ypos+20
-    if change_to == 'RIGHT':
+    if change_shot == 'RIGHT':
         while x_bull<1200:
             x_bull=x_bull+40
             screen.blit(bullet, (x_bull,y_bull))
@@ -68,7 +68,7 @@ def shoot(xpos,ypos,change_to,screen,bullet,x_v,y_v,cont):
                 cont = cont + 20
                 break
             pygame.display.flip()
-    if change_to == 'UP':
+    if change_shot == 'UP':
         while y_bull>-800:
             y_bull=y_bull-40
             screen.blit(bullet, (x_bull,y_bull))
@@ -76,7 +76,7 @@ def shoot(xpos,ypos,change_to,screen,bullet,x_v,y_v,cont):
                 cont = cont + 20
                 break
             pygame.display.flip()
-    if change_to == 'LEFT':
+    if change_shot == 'LEFT':
         while x_bull>-1200:
             x_bull=x_bull-40
             screen.blit(bullet, (x_bull,y_bull))
@@ -84,13 +84,14 @@ def shoot(xpos,ypos,change_to,screen,bullet,x_v,y_v,cont):
             if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
                 cont = cont + 20
                 break
-    if change_to == 'DOWN':
+    if change_shot == 'DOWN':
         while y_bull<800:
             y_bull=y_bull+40
             screen.blit(bullet, (x_bull,y_bull))
             pygame.display.flip()
             if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
                 cont = cont + 20
+                y_v = y_v + 50
                 break
     #return cont variable
     return cont
@@ -185,13 +186,13 @@ def main():
 
         #Vladimir follow you...
         if x_v < xpos:
-            x_v = x_v + 8
+            x_v = x_v + 7
         else:
-            x_v = x_v - 8
+            x_v = x_v - 7
         if y_v < ypos:
-            y_v = y_v + 8
+            y_v = y_v + 7
         else:
-            y_v = y_v - 8
+            y_v = y_v - 7
 
         #hitbox for Vladimir
         if xpos > x_v-40 and xpos < x_v+40 and ypos > y_v-40 and ypos < y_v+40:
@@ -226,9 +227,18 @@ def main():
                         pass
                     else:
                         change_to = 'UP'
-                if event.key == pygame.K_SPACE:
-                    cont = shoot(xpos,ypos,change_to,screen,bullet,x_v,y_v,cont)
-                    
+                if event.key == pygame.K_UP:
+                    change_shot = 'UP'
+                    cont = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                if event.key == pygame.K_DOWN:
+                    change_shot = 'DOWN'
+                    cont = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                if event.key == pygame.K_RIGHT:
+                    change_shot = 'RIGHT'
+                    cont = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                if event.key == pygame.K_LEFT:
+                    change_shot = 'LEFT'
+                    cont = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
 
                     
 # run the main function only if this module is executed as the main script
