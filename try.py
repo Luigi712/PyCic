@@ -35,70 +35,99 @@ def gameover(screen_width, screen_height,screen):
             screen.blit(game_over_surface, game_over_rect)
             pygame.display.flip()
             time.sleep(1)
-    #gestione della scelta utente
-            for event in pygame.event.get():
+            while(True):
+                event = pygame.event.wait()
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    quit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_q: 
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
                         pygame.quit()
                         quit()
                     if event.key == pygame.K_SPACE: 
-                        main()  
+                        main()
 
 def score(screen_width, screen_height,screen,cont):
-    my_font = pygame.font.SysFont('times new roman', 20)
-    score_surface = my_font.render('score: ' + str(cont) , True,pygame.Color(255, 0, 0))
+    my_font = pygame.font.SysFont('times new roman', 30)
+    score_surface = my_font.render('score: ' + str(cont) , True,pygame.Color(255, 255, 255))
     score_rect = score_surface.get_rect()
-    score_rect = (screen_width/2, screen_height/8)
+    score_rect = (screen_width/16, screen_height/16)
+    screen.blit(score_surface, score_rect)
+    pygame.display.update()
+
+def kebabcount(screen_width, screen_height,screen,kebab):
+    my_font = pygame.font.SysFont('times new roman',  30)
+    score_surface = my_font.render('N* kebab : ' + str(kebab) , True,pygame.Color(255, 255, 255))
+    score_rect = score_surface.get_rect()
+    score_rect = (screen_width/1.2, screen_height/1.1)
     screen.blit(score_surface, score_rect)
     pygame.display.update()
 
 
 
-def shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont):
+def shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont,kebab):
     x_bull=xpos
     y_bull=ypos+20
     if change_shot == 'RIGHT':
-        while x_bull<1200:
-            x_bull=x_bull+40
-            screen.blit(bullet, (x_bull,y_bull))
-            if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
-                cont = cont + 20
-                x_v = x_v + 50
-                break
-            pygame.display.flip()
+        if kebab >0:
+            kebab = kebab -1
+            while x_bull<1200:
+                x_bull=x_bull+40
+                screen.blit(bullet, (x_bull,y_bull))
+                if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
+                    cont = cont + 20
+                    x_v = x_v + 50
+                    break
+                pygame.display.flip()
     if change_shot == 'UP':
-        while y_bull>-800:
-            y_bull=y_bull-40
-            screen.blit(bullet, (x_bull,y_bull))
-            if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
-                cont = cont + 20
-                y_v = y_v - 50
-                break
-            pygame.display.flip()
+        if kebab >0:
+            kebab = kebab -1
+            while y_bull>-800:
+                y_bull=y_bull-40
+                screen.blit(bullet, (x_bull,y_bull))
+                if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
+                    cont = cont + 20
+                    y_v = y_v - 50
+                    break
+                pygame.display.flip()
     if change_shot == 'LEFT':
-        while x_bull>-1200:
-            x_bull=x_bull-40
-            screen.blit(bullet, (x_bull,y_bull))
-            pygame.display.flip()
-            if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
-                cont = cont + 20
-                x_v = x_v - 50
-                break
+        if kebab >0:
+            kebab = kebab -1
+            while x_bull>-1200:
+                x_bull=x_bull-40
+                screen.blit(bullet, (x_bull,y_bull))
+                pygame.display.flip()
+                if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
+                    cont = cont + 20
+                    x_v = x_v - 50
+                    break
     if change_shot == 'DOWN':
-        while y_bull<800:
-            y_bull=y_bull+40
-            screen.blit(bullet, (x_bull,y_bull))
-            pygame.display.flip()
-            if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
-                cont = cont + 20
-                y_v = y_v + 50
-                break
+        if kebab >0:
+            kebab = kebab -1
+            while y_bull<800:
+                y_bull=y_bull+40
+                screen.blit(bullet, (x_bull,y_bull))
+                pygame.display.flip()
+                if (x_bull > x_v - 40 and x_bull < x_v + 40) and (y_bull > y_v - 40 and y_bull < y_v + 40):
+                    cont = cont + 20
+                    y_v = y_v + 50
+                    break
     #return cont variable and x,y of vlad. +7 keep vladimir moving with main
-    return (cont,x_v + 7,y_v +7)
+    return (cont,x_v + 7,y_v +7,kebab)
 
+
+def ragevladi(screen,x_v,y_v,bullet,x_pos, y_pos, screen_width, screen_height):
+        x_bull=x_v
+        y_bull=y_v
+        if (random.randint(10,20) == 15):
+            while x_bull<1200:
+                    x_bull=x_bull + x_pos/20
+                    y_bull = y_bull + y_pos/20
+                    screen.blit(bullet, (x_bull,y_bull))
+                    pygame.display.flip()
+                    if (x_bull > x_pos - 40 and x_bull < x_pos + 40) and (y_bull > y_pos - 40 and y_bull < y_pos + 40):
+                        return True
+        return False                
 
 
 
@@ -139,6 +168,7 @@ def main():
     y_enemy = random.randint(100,700)
     x_v = 500
     y_v = 500
+    kebab = 10
 
     # how many pixels we move our smiley each frame
     step_x = 15
@@ -153,6 +183,11 @@ def main():
      
     # main loop
     while running:
+        if cont > 10:
+            boolvar =ragevladi(screen,x_v,y_v,bullet,xpos,ypos,screen_width,screen_height)
+            if(boolvar):
+                gameover(screen_width,screen_height,screen)
+        kebabcount(screen_width, screen_height,screen,kebab)
         score(screen_width,screen_height,screen,cont)
 
         if change_to=='RIGHT':
@@ -172,6 +207,9 @@ def main():
         time.sleep(0.05)
 
         #spawn sprite
+
+        
+
 
         screen.fill(0)
         screen.blit(bg, (0, 0))
@@ -195,6 +233,7 @@ def main():
             image = pygame.transform.scale(image,(65,65))
             step_x = step_x + 15
             step_y = step_y + 15
+            kebab=kebab+3
             cont=cont+1
 
         #Vladimir follow you...
@@ -208,11 +247,31 @@ def main():
         else:
             y_v = y_v - 7
 
+        #if vladimir goes out the screen, he becomes stronger:
+        if x_v>screen_width-64 or x_v<0:
+            vladimir = pygame.transform.scale(vladimir,(160,160))
+            screen.fill(0)
+            screen.blit(bg, (0, 0))
+            screen.blit(image, (xpos,ypos))
+            x_v = 500
+            y_v = 500
+            screen.blit(img_enemy, (x_enemy,y_enemy))
+            screen.blit(vladimir, (x_v,y_v))
+        if y_v>screen_height-64 or y_v<0:
+            vladimir = pygame.transform.scale(vladimir,(160,160))
+            screen.fill(0)
+            screen.blit(bg, (0, 0))
+            screen.blit(image, (xpos,ypos))
+            x_v = 500
+            y_v = 500
+            screen.blit(img_enemy, (x_enemy,y_enemy))
+            screen.blit(vladimir, (x_v,y_v))
+        
+
         #hitbox for Vladimir
         if xpos > x_v-40 and xpos < x_v+40 and ypos > y_v-40 and ypos < y_v+40:
             pygame.display.flip()
             cont=cont-1
-
 
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
@@ -243,16 +302,17 @@ def main():
                         change_to = 'UP'
                 if event.key == pygame.K_UP:
                     change_shot = 'UP'
-                    (cont,x_v,y_v) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                    (cont,x_v,y_v,kebab) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont,kebab)
                 if event.key == pygame.K_DOWN:
                     change_shot = 'DOWN'
-                    (cont,x_v,y_v) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                    (cont,x_v,y_v,kebab) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont,kebab)
                 if event.key == pygame.K_RIGHT:
                     change_shot = 'RIGHT'
-                    (cont,x_v,y_v) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                    (cont,x_v,y_v,kebab) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont,kebab)
                 if event.key == pygame.K_LEFT:
                     change_shot = 'LEFT'
-                    (cont,x_v,y_v) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont)
+                    (cont,x_v,y_v,kebab) = shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont,kebab)
+                
 
                     
 # run the main function only if this module is executed as the main script
