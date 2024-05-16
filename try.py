@@ -119,10 +119,21 @@ def shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont,kebab):
 def ragevladi(screen,x_v,y_v,vlad_b,x_pos, y_pos, screen_width, screen_height):
         x_bull=x_v
         y_bull=y_v
+        choice= random.randint(1,4);
         if (random.randint(10,20) == 15):
-            while x_bull<1200:
-                    x_bull=x_bull + x_pos/20
-                    y_bull = y_bull + y_pos/20
+            while x_bull<1200 and x_bull>0:
+                    if(choice==1):
+                        x_bull=x_bull + x_pos/20
+                        y_bull = y_bull + y_pos/20
+                    if(choice==2):
+                        x_bull=x_bull - x_pos/20
+                        y_bull = y_bull + y_pos/20
+                    if(choice==3):
+                        x_bull=x_bull - x_pos/20
+                        y_bull = y_bull - y_pos/20
+                    if(choice==4):
+                        x_bull=x_bull + x_pos/20
+                        y_bull = y_bull - y_pos/20
                     screen.blit(vlad_b, (x_bull,y_bull))
                     pygame.display.flip()
                     if (x_bull > x_pos - 40 and x_bull < x_pos + 40) and (y_bull > y_pos - 40 and y_bull < y_pos + 40):
@@ -269,7 +280,7 @@ def main():
             y_v = 500
             screen.blit(img_enemy, (x_enemy,y_enemy))
             screen.blit(vladimir, (x_v,y_v))
-        
+        time.sleep(0.05)
 
         #hitbox for Vladimir
         if xpos > x_v-40 and xpos < x_v+40 and ypos > y_v-40 and ypos < y_v+40:
