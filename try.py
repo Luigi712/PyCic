@@ -121,7 +121,7 @@ def ragevladi(screen,x_v,y_v,vlad_b,x_pos, y_pos, screen_width, screen_height):
         y_bull=y_v
         choice= random.randint(1,4);
         if (random.randint(10,20) == 15):
-            while x_bull<1200 and x_bull>0:
+            while x_bull<1200 and x_bull>0 and y_bull<800 and y_bull>0:
                     if(choice==1):
                         x_bull=x_bull + x_pos/20
                         y_bull = y_bull + y_pos/20
@@ -146,6 +146,8 @@ def ragevladi(screen,x_v,y_v,vlad_b,x_pos, y_pos, screen_width, screen_height):
 def main():
     # initialize the pygame module
     pygame.init()
+    clock = pygame.time.Clock()
+    clock.tick(30)
     # load and set the logo
     #logo = pygame.image.load("logo32x32.png")
     #pygame.display.set_icon(logo)
@@ -237,7 +239,7 @@ def main():
             image = pygame.image.load("asset/hasb.png")
             image = pygame.transform.scale(image,(65,65))
         
-
+        time.sleep(0.03)
         #hitbox for eating
         if xpos > x_enemy-40 and xpos < x_enemy+40 and ypos > y_enemy-40 and ypos < y_enemy+40:
             pygame.display.flip()
@@ -280,7 +282,7 @@ def main():
             y_v = 500
             screen.blit(img_enemy, (x_enemy,y_enemy))
             screen.blit(vladimir, (x_v,y_v))
-        time.sleep(0.05)
+        
 
         #hitbox for Vladimir
         if xpos > x_v-40 and xpos < x_v+40 and ypos > y_v-40 and ypos < y_v+40:
