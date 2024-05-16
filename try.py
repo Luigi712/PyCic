@@ -116,14 +116,14 @@ def shoot(xpos,ypos,change_shot,screen,bullet,x_v,y_v,cont,kebab):
     return (cont,x_v + 7,y_v +7,kebab)
 
 
-def ragevladi(screen,x_v,y_v,bullet,x_pos, y_pos, screen_width, screen_height):
+def ragevladi(screen,x_v,y_v,vlad_b,x_pos, y_pos, screen_width, screen_height):
         x_bull=x_v
         y_bull=y_v
         if (random.randint(10,20) == 15):
             while x_bull<1200:
                     x_bull=x_bull + x_pos/20
                     y_bull = y_bull + y_pos/20
-                    screen.blit(bullet, (x_bull,y_bull))
+                    screen.blit(vlad_b, (x_bull,y_bull))
                     pygame.display.flip()
                     if (x_bull > x_pos - 40 and x_bull < x_pos + 40) and (y_bull > y_pos - 40 and y_bull < y_pos + 40):
                         return True
@@ -157,6 +157,9 @@ def main():
 
     bullet = pygame.image.load("asset/R.png")
     bullet = pygame.transform.scale(bullet,(40,40))
+
+    vlad_b = pygame.image.load("asset/vlad_b.png")
+    vlad_b = pygame.transform.scale(vlad_b,(40,40))
     pygame.display.flip()
 
 
@@ -184,7 +187,7 @@ def main():
     # main loop
     while running:
         if cont > 10:
-            boolvar =ragevladi(screen,x_v,y_v,bullet,xpos,ypos,screen_width,screen_height)
+            boolvar =ragevladi(screen,x_v,y_v,vlad_b,xpos,ypos,screen_width,screen_height)
             if(boolvar):
                 gameover(screen_width,screen_height,screen)
         kebabcount(screen_width, screen_height,screen,kebab)
@@ -204,7 +207,7 @@ def main():
            gameover(screen_width,screen_height,screen)
         if ypos>screen_height-64 or ypos<0:
            gameover(screen_width,screen_height,screen)
-        time.sleep(0.05)
+        #time.sleep(0.05)
 
         #spawn sprite
 
